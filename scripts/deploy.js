@@ -13,7 +13,7 @@ const main = async() => {
 
 
   const tokenOwner = await myEpicNFT.getNFTOwner(0);
-  console.log('yo here', tokenOwner)
+  console.log('nft owner', tokenOwner)
   
 }
 

@@ -1,5 +1,6 @@
 const { expect, assert } = require("chai");
 const { ethers } = require("hardhat");
+const { metadata } = require('../utils/metadata')
 
 describe("MyEpicNFT",  () => {
   let MyEpicNFT, myEpicNFT, owner, addr1, addr2
@@ -24,12 +25,22 @@ describe("MyEpicNFT",  () => {
       await txn.wait()
       const { from } = txn
 
+      
+
       const nftOwner = await myEpicNFT.getNFTOwner(0)
       
       console.log('from account', from )
       assert(from, addr1)
-      assert(nftOwner, addr1)      
+      assert(nftOwner, addr1) // check if nft owner is addrss 1
+      
+   
+      const tokenURI = await myEpicNFT.tokenURI(0) 
+      console.log('token uri', tokenURI)
+      assert.equal(tokenURI, metadata) // check if token uri matches 
+
     });
+
+    
 
   })
 
