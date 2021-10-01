@@ -21,7 +21,7 @@ describe("MyEpicNFT",  () => {
 
   describe('Mint NFT', () => {
     it("Allows addr1 to mint NFT", async () => {
-      const txn = await myEpicNFT.connect(addr1).makeAnEpicNFT()
+      const txn = await myEpicNFT.connect(addr1).mintNFT()
       await txn.wait()
       const { from } = txn
 

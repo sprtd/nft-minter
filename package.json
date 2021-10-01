@@ -11,7 +11,8 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.2",
     "dotenv": "^10.0.0",
-    "hardhat": "^2.6.4"
+    "hardhat": "^2.6.4",
+    "hardhat-abi-exporter": "^2.3.0"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",

@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
+import { Base64 } from './libraries/Base64.sol';
 
 import "hardhat/console.sol";
 
@@ -50,26 +51,49 @@ contract MyEpicNFT is ERC721URIStorage {
     return wordThree[rand];
   }
 
-  function makeAnEpicNFT() public {
+  function mintNFT() public {
     uint256 newItemId = _tokenIds.current();
 
     string memory selectedWordOne = selectRandomWordOne(newItemId);
     string memory selectedWordTwo = selectRandomWordTwo(newItemId);
     string memory selectedWordThree = selectRandomWordThree(newItemId);
+    string memory combinedWords = string(abi.encodePacked(selectedWordOne, selectedWordTwo, selectedWordThree));
 
-    string memory finalSVG = string(abi.encodePacked(baseSVG, selectedWordOne, selectedWordTwo, selectedWordThree, '</text></svg>'));
+    string memory finalSVG = string(abi.encodePacked(baseSVG, combinedWords, '</text></svg>'));
+
+    string memory generatedJSON = Base64.encode(
+      bytes(
+        string(
+          abi.encodePacked(
+             '{"name": "',
+                    // We set the title of our NFT as the generated word.
+                  combinedWords,
+                  '", "description": "A highly acclaimed collection of squares.", "image": "data:image/svg+xml;base64,',
+                  // We add data:image/svg+xml;base64 and then append our base64 encode our svg.
+                  Base64.encode(bytes(finalSVG)),
+              '"}'
+          )
+         )
+      )
+    );
+
+    string memory finalTokenURI = string(abi.encodePacked('data:application/json;base64,', generatedJSON));
+
+     
     console.log('\n____________________');
-    console.log(finalSVG);
+    console.log(finalTokenURI);
     console.log('\n_____________________');
 
 
 
     _safeMint(msg.sender, newItemId);
-    _setTokenURI(newItemId, "alpha testing");
-    console.log("NFT id %s minted by %s", newItemId, msg.sender);
+    _setTokenURI(newItemId, finalTokenURI);
     _tokenIds.increment();
+    console.log("NFT id %s minted by %s", newItemId, msg.sender);
 
   }
+
+
 
 
   function getNFTOwner(uint _tokenId) public view returns(address tokenOwner) {

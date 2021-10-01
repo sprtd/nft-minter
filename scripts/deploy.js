@@ -5,10 +5,10 @@ const main = async() => {
   await myEpicNFT.deployed()
   console.log('Contract deployed to: ', myEpicNFT.address)
 
-  let txn  = await myEpicNFT.makeAnEpicNFT()
+  let txn  = await myEpicNFT.mintNFT()
   await txn.wait()
 
-  txn  = await myEpicNFT.makeAnEpicNFT()
+  txn  = await myEpicNFT.mintNFT()
   await txn.wait()
 
 

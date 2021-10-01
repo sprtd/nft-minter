@@ -1,5 +1,7 @@
 require('dotenv').config({path: './config/config.env'})
 require("@nomiclabs/hardhat-waffle");
+require('hardhat-abi-exporter')
+
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -24,5 +26,8 @@ module.exports = {
       url: process.env.RINKEBY_ENDPOINT,
       accounts: [`0x${process.env.PRIVATE_KEY}`]
     }
+  },
+  abiExporter: {
+    path: './client/src/abi'
   }
 };
