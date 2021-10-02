@@ -11,16 +11,15 @@ const MintUI = ({ mintNFT, isMintLoading }) => {
           <button className="cta-button connect-wallet-button" onClick={mintNFT}>
             Mint
           </button>
+
+          <a
+            className="opensea"
+            href={`https://testnets.opensea.io/collection/${openseaID}`}
+            target="_blank"
+            rel="noopener  noreferrer"
+          >View Opensea Collections</a>
         </>
       )}
-      
-      <a
-        className="opensea"
-        href={`https://testnets.opensea.io/collection/${openseaID}`}
-        target="_blank"
-        rel="noopener  noreferrer"
-      >View Opensea Collections</a>
-  
     </>
   )
 }

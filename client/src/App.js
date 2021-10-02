@@ -18,16 +18,15 @@ const showNFT = {
   display: 'flex', 
   height: '40vh',
   flexDirection: 'column',
-  width: '50vh',
-  // border: '1px solid #d5b8ff',
+  width: '30vw',
   border: '1px solid #6ffbff',
-  // border: '1px solid #6ffbff',
-
   opacity: '0.9',
   justifyContent: 'center',
   alignItems: 'center',
+  borderRadius: '8px',
+  marginTop: '10vh',
+  marginBottom: '5vh'
 
-  borderRadius: '8px'
   
 }
 
@@ -128,19 +127,26 @@ const App = () => {
       alert('you need to install metamask')
     }  
 
-    const accounts = await ethereum.request({ method: 'eth_accounts'})
+    const accounts = await ethereum.request({ method: 'eth_requestAccounts'})
 
-    ethereum.on('accountsChanged', () => {
-      window.location.reload()
-    })
+    if (accounts.length !== 0) {
+      const account = accounts[0];
+      console.log("Found an authorized account:", account);
+      setCurrentAccount(account)
 
-    ethereum.on('chainChanged', () => {
-      window.location.reload()
-    })
-    const account = accounts[0]
+      ethereum.on('accountsChanged', () => {
+        window.location.reload()
+      })
+  
+      ethereum.on('chainChanged', () => {
+        window.location.reload()
+      })
+  } else {
+      console.log("No authorized account found")
+  }
 
-    setCurrentAccount(account)
-    console.log('found account', account)
+    
+   
   }
 
 

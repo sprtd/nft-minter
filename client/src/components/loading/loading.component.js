@@ -8,7 +8,7 @@ const Loading = () => {
 
   return (
     <LoadingWrapper>
-     <BarLoader color='purple' height={25} /> 
+      <BarLoader color='purple' height={10} /> 
     </LoadingWrapper>
   )
 }
