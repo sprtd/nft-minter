@@ -21,8 +21,12 @@ describe("MyEpicNFT",  () => {
 
   describe('Mint NFT', () => {
     it("Allows addr1 to mint NFT", async () => {
+
+    
+    
       const txn = await myEpicNFT.connect(addr1).mintNFT()
       await txn.wait()
+
       const { from } = txn
 
       
@@ -31,22 +35,28 @@ describe("MyEpicNFT",  () => {
       
       console.log('from account', from )
       assert(from, addr1)
-      assert(nftOwner, addr1) // check if nft owner is addrss 1
-      
-   
-      const tokenURI = await myEpicNFT.tokenURI(0) 
-      console.log('token uri', tokenURI)
-      assert.equal(tokenURI, metadata) // check if token uri matches 
-
+      assert(nftOwner, addr1) // check if nft owner is address 1
     });
 
-    
+    it('Reverts attempt to mint above 50 NFTs', async() => {
+      const REVERT = `VM Exception while processing transaction: reverted with reason string 'no more NFT to mint`
 
+      try {
+        const totalMints = 51;
+        for(i = 0; i < totalMints; i++) {
+          const txn = await myEpicNFT.connect(addr1).mintNFT()
+          await txn.wait()
+  
+          const getTotalMints = await myEpicNFT.getTotalMints()
+          console.log({totalMintsHere: getTotalMints.toNumber()})
+        } 
+        
+        throw null
+      } catch(err) {
+         assert(err.message.startsWith(REVERT), `Expected ${REVERT} but got ${err.message} instead`)
+
+      }
+    })
   })
 
-
-
- 
-
-  
 });
