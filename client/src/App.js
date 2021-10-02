@@ -19,7 +19,8 @@ const showNFT = {
   height: '40vh',
   flexDirection: 'column',
   width: '50vh',
-  border: '1px solid #6ffbff',
+  border: '1px solid #d5b8ff',
+  // border: '1px solid #6ffbff',
 
   opacity: '0.9',
   justifyContent: 'center',
@@ -172,11 +173,7 @@ const App = () => {
            Discover your unique NFT today.
           </p>
         
-          { currentAccount !== '' ? <MintUI mintNFT={mintNFT} isMintLoading={isMintLoading} /> : <NotConnected connectWallet={connectWallet} />}
-
-            {/* <EventWrapper>
-              { logMinted.sender ? <span style={{color: 'white'}}>{logMinted.sender}</span> : null}
-            </EventWrapper> */}         
+          { currentAccount !== '' ? <MintUI mintNFT={mintNFT} isMintLoading={isMintLoading} /> : <NotConnected connectWallet={connectWallet} />}    
         </div>
 
         <div className='show-NFT'>
@@ -187,7 +184,7 @@ const App = () => {
             { isFetchLoading ? <Loading /> : null }
           { mintCount ? (
             <>
-              <p style={{color: '#d5b8ff'}}> <b>{ `Count: ${mintCount}/${TOTAL_MINT_COUNT}` } </b></p>
+              <p style={{color: '#6ffbff'}}> <b>{ `Count: ${mintCount}/${TOTAL_MINT_COUNT}` } </b></p>
             </>
 
           ) : null }
